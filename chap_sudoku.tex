@@ -14,6 +14,161 @@ Trivia: Eindeutigkeit der Lösung, Min/Max-zahl  Vorgaben
 \section{Mathematische Modellierung}
 Basics: Variablen, Bedingungen, Ganzzahligkeit!!!
 
+Forschungsfragen zum Thema:
+\begin{itemize}
+\item Wie sieht ein mathematisches Modell für ein Sudoku aus?
+\item Sind Sudokus im Allgemeinen eindeutig lösbar?
+\item Wie viele Zahlen müssen mindestens angegeben werden, damit das Sudoku eindeutig lösbar ist?
+\item Wie viele verschiedene Sudokus gibt es?
+\item Nach welchen Kriterien wird ein Sudoku als \glqq schwer\grqq\ oder \glqq einfach\grqq\ bezeichnet?
+\item Welche \glqq Spezialregeln\grqq\ sind denkbar und welchen Einfluss haben diese Regeln auf die oben genannte Fragen?
+\end{itemize}
+Wir vereinfachen zunächst das bekannt Sudoku auf ein $4\times 4 - \text{Sudoku}$.\\
+\ \\
+\begin{minipage}{0.4\textwidth}
+\begin{center}
+Allgemeine Form:\\ \ \\
+\huge
+$
+\begin{array}{|c|c||c|c|}
+\hline
+x_{1,1} &  x_{1,2} & x_{1,3} & x_{1,4}\\
+\hline
+x_{2,1} &  x_{2,2} & x_{2,3} & x_{2,4}\\
+\hline
+\hline
+x_{3,1} &  x_{3,2} & x_{3,3} & x_{3,4}\\
+\hline
+x_{4,1} &  x_{4,2} & x_{4,3} & x_{4,4}\\
+\hline
+\end{array}
+$
+\end{center}
+\end{minipage}
+\begin{minipage}{0.15\textwidth}
+~
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{center}
+Beispiel:\\ \ \\
+\huge
+$
+\begin{array}{|c|c||c|c|}
+\hline
+~1~ & ~4~ & ~3~ & ~2~\\
+\hline
+~2~ & ~3~ & ~4~ & ~1~\\
+\hline
+\hline
+~4~ & ~1~ & ~2~ & ~3~\\
+\hline
+~3~ & ~2~ & ~1~ & ~4~\\
+\hline
+\end{array}
+$
+\end{center}
+\end{minipage}
+\ \\
+\ \\
+\ \\
+Wir fassen die Einträge in den Feldern des Sudoku als Variablen $x_{i,j}$ auf. Wobei gilt:
+\vspace{-0.5cm}
+\begin{align*}
+&&x_{i,j} & \in \{1,2,3,4\} \\
+&&i & \in \{1,2,3,4\} \\
+&&j & \in \{1,2,3,4\}
+\end{align*}
+Die Variablenbelegung $x_{2,3}=4$ bedeutet beispielsweise, dass in der zweiten Zeile in der dritten Spalte eine vier eingetragen ist.\\
+\ \\
+Nach den Regeln des Sudoku müssen nun folgende Ungleichungen erfüllt sein:
+\begin{enumerate}
+\item In einer Zeile darf nicht zweimal der gleiche Wert eingetragen werden.\\
+$x_{i,1} \neq x_{i,2} \qquad x_{i,1} \neq x_{i,3} \qquad x_{i,1} \neq x_{i,4}$\\
+ $x_{i,2} \neq x_{i,3} \qquad x_{i,2} \neq x_{i,4}$\\
+$x_{i,3} \neq x_{i,4}$
+\item In einer Spalte darf nicht zweimal der gleiche Wert eingetragen sein.\\
+$x_{1,j} \neq x_{2,j} \qquad x_{1,j} \neq x_{3,j} \qquad x_{1,j} \neq x_{4,j}$\\
+ $x_{2,j} \neq x_{3,j} \qquad x_{2,j} \neq x_{4,j}$\\
+$x_{3,j} \neq x_{4,j}$
+\item In einen Block darf nicht zweimal der gleiche Wert eingetragen werden.\\
+$x_{1,1} \neq x_{2,2} \qquad x_{2,1} \neq x_{1,2}$\\
+$x_{1,3} \neq x_{2,4} \qquad x_{2,3} \neq x_{1,4}$\\
+$x_{3,1} \neq x_{4,2} \qquad x_{4,1} \neq x_{3,2}$\\
+$x_{3,3} \neq x_{4,4} \qquad x_{3,4} \neq x_{4,3}$\\
+\emph{(Hinweis: Wir können uns hier auf die Diagonalen beschränken, da wir die Ungleichheit in den Reihen und Spalten schon in Regel I und II hergestellt haben.)}
+\end{enumerate}
+Mit der mathematischen Formulierung der Regeln I, II und III haben wir nun eine mathematische Beschreibung für ein $4\times 4 - \text{Sudoku}$ gefunden. Leider ist diese Formulierung durch Ungleichungen nicht geeignet, um das Sudoku an ein Lösungsprogramm zu übergeben. Vor allem, wenn man bedenkt, dass vor allem die Formulierung für Regel III in einem ein $9\times 9 - \text{Sudoku}$ weit umfangreicher wäre. Beispielhaft werden die Ungleichheitsbedingungen an einem ein $3\times 3 - \text{Block}$ veranschaulicht.\\
+\ \\
+Tikz-Bild
+\ \\
+\ \\
+Um eine geeignete Formulierung zu motivieren, schauen wir uns das Damenproblem an.\\
+\ \\
+Damenproblem\\
+Formulierung als 0/1-Problem\\
+Übertragung auf Sudoku\\
+\ \\
+Wir erweitern unserer Überlegungen und fassen die Einträge in den Feldern des Sudoku als Variablen $x_{i,j,k}$ auf. Wobei gilt:
+\vspace{-0.5cm}
+\begin{align*}
+&&x_{i,j,k} & \in \{0,1\} \\
+&&i & \in \{1,\dots,9\} \\
+&&j & \in \{1,\dots,9\} \\
+&&k & \in \{1,\dots,9\}
+\end{align*}
+Die Variablenbelegung $x_{2,3,8}=1$ bedeutet beispielsweise, dass in der zweiten Zeile in der dritten Spalte eine acht eingetragen ist. Die Belegung $x_{9,7,2}=0$ bedeutet, dass in der neunten Zeile in der siebten Spalte \textbf{keine} zwei eingetragen ist.\\
+\ \\
+Wir fassen nun die Regeln des Sudoku als Gleichungssystem auf und beginnen mit den beiden Regeln, die intuitiv klar sind.
+\begin{enumerate}
+\item In einer Zeile darf jede Zahl nur einmal eingetragen werden.
+$$ \sum_{i=1}^{9}{x_{i,j,k}}=1 \qquad \forall {j,k}$$ 
+\item In einer Spalte darf jede Zahl nur einmal eingetragen werden.
+$$ \sum_{j=1}^{9}{x_{i,j,k}}=1 \qquad \forall {i,k}$$ 
+\end{enumerate}
+Das reicht auch unabhängig von der Blockregel noch nicht aus, um eine eindeutige Belegung für Sudoku zu finden. Das folgende Beispiel zeigt, dass eine wichtige Bedingung noch nicht beachtet wurde.\\
+\ \\
+tikz-Bild 2x2-Sudoku\\
+\ \\
+Es sei $x_1,1,1=1$ als Start vorgegeben. Nach den obigen Regeln gilt:
+\begin{align}
+x_{1,1,1} + x_{1,2,1} = 1\\
+x_{2,1,1} + x_{2,2,1} = 1\\
+x_{1,1,1} + x_{2,1,1} = 1\\
+x_{1,2,1} + x_{2,2,1} = 1
+\end{align}
+Gemeinsam mit der Startvorgabe folgt aus (1) $x_{1,2,1}=0$, also steht in der ersten Zeile in der zweiten Spalte keine 1. Analog folgt aus (3), dass in der ersten Spalte in der zweiten Zeile keine 1 steht. Des Weiteren folgt aus (1) und (2) sowie aus (3) und (4), dass in der zweiten Zeile in der zweiten Spalte eine 1 steht. Weiter gilt nach den Regeln I. und II.:
+\begin{align}
+x_{1,1,0} + x_{1,2,0} = 1\\
+x_{2,1,0} + x_{2,2,0} = 1\\
+x_{1,1,0} + x_{2,1,0} = 1\\
+x_{1,2,0} + x_{2,2,0} = 1
+\end{align}
+Wir können $x_{1,1,0}$ frei wählen ohne einen Widerspruch zu erzeugen.\\
+Setzen wir $x_{1,1,0}=0$ folgern wir analog zu oben $x_{1,2,0}=1$, $x_{2,1,0}=1$ und $x_{2,2,0}=0$. Somit ergibt sich folgende Lösung des Mini-Sudokus:\\
+\ \\
+Tikz-Bild\\
+\ \\
+Allerdings können wir auch $x_{1,1,0}=1$ setzen und eine (bisher) zulässige Lösung erzeugen. Es ergibt sich $x_{1,2,0}=0$, $x_{2,1,0}=0$ und $x_{2,2,0}=1$ und wir erhaltene folgende Lösung:\\
+\ \\
+Tikz-Bild\\
+\ \\
+Allen Sudoku-Lösende ist intuitiv klar, dass in jedes Feld eine Zahl von 1 und 9 eingetragen werden muss. Für das mathematische Modell müssen wir diese Regel explizit formulieren.
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item In jedes Feld wird genau eine Zahl eingetragen.\\
+$$ \sum_{k=1}^{9}{x_{i,j,k}}=1 \qquad \forall {i,j}$$
+\end{enumerate}
+Zuletzt müssen wir nun sicher stellen, dass in jedem Block jede Zahl nur einmal vorkommt.\\
+\emph{erläuternder Text}\\
+$$ \sum_{l=1}^{3} \sum_{m=1}^{3} {x_{3(s-1)+l, 3(t-1)+m, k}} =1 \qquad \forall s,t \in \{1,2,3\} \quad \forall k$$
+i-te Reihe\\
+j-te Spalte\\
+k-te Zahl\\
+s-te Block (horizontal)\\
+t-te Block (vertikal)\\
+l-tes Feld im Block (horizontal)\\
+m-tes Feld im Block (vertikal)
+
 \section{Erste Modellierungsversuche}
 Ungleichungen, Modell mit allgemein-ganzzahligen Variablen.
 % Mir ist nicht gnaz klar, in welchr Reihenfolge man das machen will
