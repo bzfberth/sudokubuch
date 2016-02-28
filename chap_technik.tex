@@ -2,6 +2,21 @@
 \label{chap_technik}
 
 \section{Propagierung}
+
+Wie gehen wir intuitiv vor, wenn wir Sudokus von Hand lösen? Nun, wir
+betrachten die Information, die uns bereits bekannt ist und schauen,
+ob wir mithilfe der gegebenen Regeln weitere Information herleiten
+können. In der Mathematik bezeichnet man ein solches Vorgehen als
+\emph{Propagierung}.
+
+Wenn wir zum Beispiel in einem Feld einer Spalte bereits eine Zahl vorgegeben
+haben, dann wissen wir, dass diese Zahl in keinem anderen Feld
+derselben Spalte stehen darf. Sind in einer Spalte alle bis ein Feld
+mit Zahlen belegt, dann wissen wir,d ass in das verbleibende Feld die
+verbleibende Zahl gehört.
+
+Das entspricht genau den zwei Propagierungschritten, die man bei
+Gleichungen der Form ``Summe von Binärvariablen gleich 1''.
 Die Basics: Einer 1 $\leadsto$ alle 0, alle außer einer 0 $\leadsto$ 1
 
 \section{Probing}
